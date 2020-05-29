@@ -1,6 +1,6 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
+import { Application } from 'https://deno.land/x/oak/mod.ts';
 
-import dogRoutes from "./routes.ts";
+import router from './routes/dino-routes.ts';
 
 const env = Deno.env.toObject();
 const PORT = env.PORT || 8080;
@@ -8,8 +8,8 @@ const HOST = env.HOST || "127.0.0.1";
 
 const app = new Application();
 
-app.use(dogRoutes.routes());
-app.use(dogRoutes.allowedMethods());
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 console.log(`Deno server listening on port ${PORT}...`);
 

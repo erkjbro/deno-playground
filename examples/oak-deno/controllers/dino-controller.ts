@@ -1,9 +1,9 @@
-interface Dog {
+interface Dino {
   name: string;
   age: number;
 }
 
-let dogs: Array<Dog> = [
+let dinos: Array<Dino> = [
   {
     name: "Roger",
     age: 8,
@@ -14,11 +14,11 @@ let dogs: Array<Dog> = [
   },
 ];
 
-export const getDogs = ({ response }: { response: any }) => {
-  response.body = dogs;
+export const getDinos = ({ response }: { response: any }) => {
+  response.body = dinos;
 };
 
-export const getDog = ({
+export const getDino = ({
   params,
   response,
 }: {
@@ -27,21 +27,21 @@ export const getDog = ({
   };
   response: any;
 }) => {
-  const dog = dogs.filter((dog) => dog.name === params.name);
+  const dino = dinos.filter((dino) => dino.name === params.name);
 
-  if (dog.length) {
+  if (dino.length) {
     response.status = 200;
-    response.body = dog[0];
+    response.body = dino[0];
     return;
   }
 
   response.status = 400;
   response.body = {
-    msg: `Canot find dog ${params.name}`,
+    msg: `Cannot find dino ${params.name}`,
   };
 };
 
-export const addDog = async ({
+export const addDino = async ({
   request,
   response,
 }: {
@@ -49,14 +49,14 @@ export const addDog = async ({
   response: any;
 }) => {
   const body = await request.body();
-  const dog: Dog = body.value;
-  dogs.push(dog);
+  const dino: Dino = body.value;
+  dinos.push(dino);
 
   response.body = { msg: "OK" };
   response.status = 200;
 };
 
-export const updateDog = async ({
+export const updateDino = async ({
   params,
   request,
   response,
@@ -67,7 +67,7 @@ export const updateDog = async ({
   request: any;
   response: any;
 }) => {
-  const temp = dogs.filter((dog) => dog.name === params.name);
+  const temp = dinos.filter(dino => dino.name === params.name);
   const body = await request.body();
   const { age }: { age: number } = body.value;
 
@@ -79,10 +79,10 @@ export const updateDog = async ({
   }
 
   response.status = 400;
-  response.body = { msg: `Cannot find dog ${params.name}` };
+  response.body = { msg: `Cannot find dino ${params.name}` };
 };
 
-export const removeDog = ({
+export const removeDino = ({
   params,
   response,
 }: {
@@ -91,12 +91,12 @@ export const removeDog = ({
   };
   response: any;
 }) => {
-  const lengthBefore = dogs.length;
-  dogs = dogs.filter((dog) => dog.name !== params.name);
+  const lengthBefore = dinos.length;
+  dinos = dinos.filter((dino) => dino.name !== params.name);
 
-  if (dogs.length === lengthBefore) {
+  if (dinos.length === lengthBefore) {
     response.status = 400;
-    response.body = { msg: `Cannot find dog ${params.name}` };
+    response.body = { msg: `Cannot find dino ${params.name}` };
     return;
   }
 
